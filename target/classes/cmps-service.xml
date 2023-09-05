@@ -21,7 +21,7 @@
 		<property name="password" value="root" />
 	</bean>
 	
-	<bean name="/checkConnection.htm" class="org.websparrow.controller.DbController">
+	<bean name="cmpsDaoTemplate" class="/cmps-service/src/main/java/com/southern/cmps/dao/CmpsDao.java">
 		<property name="dataSource" ref="dmds"></property>
 	</bean>
 
