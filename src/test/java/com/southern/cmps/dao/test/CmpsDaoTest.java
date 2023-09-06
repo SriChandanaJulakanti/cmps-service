@@ -1,8 +1,6 @@
 package com.southern.cmps.dao.test;
 
-import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.experimental.theories.suppliers.TestedOn;
 import org.springframework.context.ApplicationContext;
 
 import com.southern.cmps.dao.CmpsDao;
