@@ -18,31 +18,29 @@ public class ConcentrationDetailExtractor implements ResultSetExtractor<List<Con
 	@Override
 	public List<Concentration> extractData(ResultSet rs) throws SQLException, DataAccessException {
 		Map<Integer, Concentration> concentrationsMap = new HashMap<>();
-		List<Concentration> concentrations = new ArrayList<>();
 		
 		while(rs.next()) {
 			int concentrationCode = rs.getInt("ConcentrationCode");
-			if(concentrationsMap.containsKey(concentrationCode)) {
-				setCourses(concentrationsMap.get(concentrationCode), rs);
-			} else {
+			if(!concentrationsMap.containsKey(concentrationCode)) {
 				Concentration concentration = new Concentration();
 				concentration.setConcentrationCode(concentrationCode);
 				concentration.setName(rs.getString("Name"));
 				concentration.setCourses(new ArrayList<Course>());
-				setCourses(concentration, rs);
 				concentrationsMap.put(concentrationCode, concentration);
 			}
+			setCourses(concentrationsMap, rs);
 		}
-		return concentrations;
+		return (List<Concentration>) concentrationsMap.values();
 	}
 	
-	private void setCourses(Concentration concentration, ResultSet rs) throws SQLException {
+	private void setCourses(Map<Integer, Concentration> concentrationsMap, ResultSet rs) throws SQLException {
+		int concentrationCode = rs.getInt("ConcentrationCode");
 		Course course = new Course();
 		course.setCourseId(rs.getString("CourseId"));
 		course.setCourseName(rs.getString("CourseName"));
-		course.setConcentrationCode(rs.getInt("ConcentrationCode"));
+		course.setConcentrationCode(concentrationCode);
 		course.setHours(rs.getInt("Hours"));
-		concentration.getCourses().add(course);
+		concentrationsMap.get(concentrationCode).getCourses().add(course);
 	}
 
 }
