@@ -10,7 +10,7 @@ public class CmpsDaoTest {
 	CmpsDao cmpsDao = context.getBean(CmpsDao.class);
 	
 //	@Ignore
-	@Test
+//	@Test
 	public void getconcentrations() {
 		System.out.println(cmpsDao.getConcentrations());
 	}
